@@ -369,6 +369,10 @@ class Client implements ClientInterface
             $value = $options['query'];
             if (is_array($value)) {
                 $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
+                
+                if(isset($options['decode_query']) && $options['decode_query'] === true) {
+                    $value = urldecode($value);
+                }
             }
             if (!is_string($value)) {
                 throw new \InvalidArgumentException('query must be a string or array');
